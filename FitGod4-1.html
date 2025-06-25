@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitGhost x Greek God - Meniu Interactiv</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #111827; color: #E5E7EB; }
+        .font-cinzel { font-family: 'Cinzel', serif; }
+        .bg-slate-dark { background-color: #111827; }
+        .bg-slate-med { background-color: #1F2937; }
+        .text-light-gray { color: #E5E7EB; }
+        .text-mid-gray { color: #9CA3AF; }
+        .border-gold { border-color: #D4AF37; }
+        .text-gold { color: #D4AF37; }
+        .nav-link { transition: all 0.3s ease; cursor: pointer; border-bottom: 2px solid transparent; }
+        .nav-link:hover, .nav-link.active { color: #D4AF37; border-bottom-color: #D4AF37; }
+        .loader { border: 4px solid #374151; border-top: 4px solid #D4AF37; border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .card-glow { box-shadow: 0 0 15px rgba(212, 175, 55, 0.1); transition: box-shadow 0.3s ease-in-out; }
+        .card-glow:hover { box-shadow: 0 0 25px rgba(212, 175, 55, 0.3); }
+    </style>
+    
+    <!-- SCRIPTUL A FOST MUTAT AICI CU 'DEFER' PENTRU A ASIGURA O ÎNCĂRCARE CORECTĂ -->
+    <script defer>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuData = {
+                meals: [
+                    { id: 1, category: "Olympian Bowls", title: "Mexican Bowl", description: "O explozie de arome cu carne de vită, porumb dulce, fasole cu curry, ceapă roșie murată, roșii cherry, nachos crocant, guacamole proaspăt și orez.", price: 42, macros: { p: 40, c: 65, f: 25, cal: 645 } },
+                    { id: 2, category: "Olympian Bowls", title: "Hawaiian Bowl", description: "O escapadă tropicală cu somon proaspăt, mango dulce, castraveți în sos de soia, portocală zemoasă, murături japoneze, nachos, guacamole și orez.", price: 42, macros: { p: 35, c: 70, f: 22, cal: 618 } },
+                    { id: 3, category: "Olympian Bowls", title: "Mediteranean Bowl", description: "Gustul Greciei într-un bol cu pui marinat suculent, brânză feta, ceapă roșie murată, roșii cherry, măsline Kalamata, castraveți proaspeți, orez și un sos tzatziki răcoritor.", price: 42, macros: { p: 45, c: 60, f: 20, cal: 600 } },
+                    { id: 4, category: "Olympian Bowls", title: "Thai Bowl", description: "O călătorie în Asia cu pui fraged, noodles de orez, morcovi, țelină, praz, porumb și un sos de soia echilibrat.", price: 33, macros: { p: 42, c: 75, f: 15, cal: 603 } },
+                    { id: 5, category: "Olympian Bowls", title: "Bali Bowl", description: "Inspirat de insule, acest bol conține pui, orez, morcovi crocanți, țelină, praz, porumb și un sos de soia aromat.", price: 33, macros: { p: 42, c: 80, f: 15, cal: 623 } },
+                    { id: 6, category: "Burgers of the Gods", title: "Double Truffle Smashed Burger", description: "Un burger divin cu 150g de vită Black Angus, dublu cheddar, maioneză cu trufe, salată iceberg, castraveți murați și ceapă caramelizată. Servit cu cartofi prăjiți, sos cheddar și ceapă crocantă.", price: 50, macros: { p: 60, c: 55, f: 45, cal: 865 } },
+                    { id: 7, category: "Burgers of the Gods", title: "Double Cheeseburger", description: "Clasicul perfecționat: 150g de vită Black Angus, dublu cheddar, sos special de burger, salată, castraveți murați. Servit cu cartofi prăjiți, sos cheddar și ceapă crocantă.", price: 45, macros: { p: 58, c: 55, f: 42, cal: 830 } },
+                    { id: 8, category: "Ambrosia Desserts", title: "Sticky Mango", description: "Un desert demn de zei, cu griș cremos fiert în lapte, piure de mango, scorțișoară, fulgi de cocos și un sirop exotic secret.", price: 15, macros: { p: 15, c: 50, f: 18, cal: 422 } },
+                ]
+            };
+
+            // --- Static AI Descriptions Mapping ---
+            const aiDescriptions = {
+                "Mexican Bowl": `<b>Energia Azteca: Mexican Bowl</b><br>Un bol vibrant, plin de texturi și arome intense. Este masa perfectă pentru o recuperare post-antrenament care te încarcă cu energie și te satisface pe deplin.<br><br><b>Ingrediente Cheie:</b><br>Carne de vită, Orez, Porumb dulce, Fasole cu curry, Ceapă roșie murată, Roșii cherry, Guacamole, Nachos.<br><br><b>Cum prinde viață în bucătărie:</b><br>Baza: Începem cu un pat de orez alb, fiert perfect pentru a absorbi toate aromele.<br>Proteina: Gătim carnea de vită cu un amestec de mirodenii care îi oferă o notă subtilă de fum și o căldură plăcută.<br>Prospețimea: Adăugăm un amestec colorat de porumb dulce, fasole în sos curry, roșii proaspete și ceapă roșie murată pentru o notă acrișoară.<br>Finalul: Coroana este pusă de o lingură generoasă de guacamole proaspăt, făcut în casă, și de nachos crocanți pentru textură.<br><br>⭐ <b>Sfatul bucătarului:</b> Pentru o experiență completă, zdrobește o parte din nachos direct în bol. Contrastul dintre crema de guacamole și bucățile crocante este fantastic!`,
+                "Hawaiian Bowl": `<b>Evadare Tropicală: Hawaiian Bowl</b><br>Proaspăt, ușor și plin de acizi grași Omega-3. Acest bol este biletul tău către o destinație exotică, o masă curată care îți revitalizează corpul și mintea.<br><br><b>Ingrediente Cheie:</b><br>Somon proaspăt, Orez, Mango, Castraveți, Portocală, Murături japoneze, Guacamole, Nachos.<br><br><b>Cum prinde viață în bucătărie:</b><br>Fundația: Totul începe cu o bază de orez, pregătită să susțină delicatețea ingredientelor.<br>Vedeta: Adăugăm cuburi generoase de somon proaspăt, de cea mai bună calitate.<br>Explozia de Fructe: Echilibrăm gustul bogat al somonului cu dulceața cuburilor de mango și aciditatea segmentelor de portocală proaspătă.<br>Textura: Castraveții marinați în soia, murăturile japoneze și guacamole-ul adaugă straturi de textură și complexitate.<br><br>⭐ <b>Sfatul bucătarului:</b> Nu amesteca! Încearcă să iei cu furculița câte puțin din fiecare ingredient pentru a te bucura de fiecare combinație de arome pe care acest bol o poate oferi.`,
+                "Mediteranean Bowl": `<b>Forța Spartanului: Mediteranean Bowl</b><br>O combinație clasică de arome grecești, perfect echilibrată. Este o masă bogată în proteine de calitate și carbohidrați curați, concepută pentru performanță și gust autentic.<br><br><b>Ingrediente Cheie:</b><br>Pui marinat, Orez, Brânză feta, Măsline Kalamata, Roșii cherry, Castraveți, Ceapă murată, Sos tzatziki.<br><br><b>Cum prinde viață în bucătărie:</b><br>Baza: Așezăm un strat de orez cald.<br>Proteina: Adăugăm bucăți fragede de piept de pui, marinat în iaurt, lămâie și ierburi, apoi gătit pe grătar pentru o aromă aparte.<br>Grădina Mediteraneană: Îmbogățim bolul cu roșii dulci, castraveți crocanți, măsline Kalamata sărate și ceapă roșie murată.<br>Atingerea Finală: Presărăm deasupra brânză feta autentică și adăugăm un strop de sos tzatziki răcoritor, făcut în casă.<br><br>⭐ <b>Sfatul bucătarului:</b> Vrei o variantă cu mai puțini carbohidrați? Cere acest bol pe un pat de salată proaspătă în loc de orez. Sosul tzatziki funcționează ca un dressing excelent.`,
+                "Thai Bowl": `<b>Echilibru Asiatic: Thai Bowl</b><br>O călătorie savuroasă și satisfăcătoare, cu pui fraged și legume crocante. Diferența stă în fundație: alege noodles pentru o textură suplă (Thai) sau orez pentru o masă mai consistentă (Bali).<br><br><b>Ingrediente Cheie:</b><br>Pui, Morcovi, Țelină, Praz, Porumb, Sos de soia. Baza: Noodles de orez (Thai).<br><br><b>Cum prinde viață în bucătărie:</b><br>Fundația: Pregătim baza aleasă de tine – noodles de orez delicați.<br>Stir-fry: Într-un wok încins, sotăm rapid bucățile de pui alături de legume proaspete (morcovi, țelină, praz, porumb), pentru a le păstra crocante.<br>Sosul: Legăm totul cu un sos de soia echilibrat, care completează perfect dulceața naturală a legumelor.<br><br>⭐ <b>Sfatul bucătarului:</b> Dacă îți place mâncarea picantă, nu ezita să ceri câțiva fulgi de chili presărați deasupra. Căldura ardeiului iute completează perfect aroma sosului de soia.`,
+                "Bali Bowl": `<b>Echilibru Asiatic: Bali Bowl</b><br>O călătorie savuroasă și satisfăcătoare, cu pui fraged și legume crocante. Diferența stă în fundație: alege noodles pentru o textură suplă (Thai) sau orez pentru o masă mai consistentă (Bali).<br><br><b>Ingrediente Cheie:</b><br>Pui, Morcovi, Țelină, Praz, Porumb, Sos de soia. Baza: Orez (Bali).<br><br><b>Cum prinde viață în bucătărie:</b><br>Fundația: Pregătim baza aleasă de tine – orez alb și pufos.<br>Stir-fry: Într-un wok încins, sotăm rapid bucățile de pui alături de legume proaspete (morcovi, țelină, praz, porumb), pentru a le păstra crocante.<br>Sosul: Legăm totul cu un sos de soia echilibrat, care completează perfect dulceața naturală a legumelor.<br><br>⭐ <b>Sfatul bucătarului:</b> Dacă îți place mâncarea picantă, nu ezita să ceri câțiva fulgi de chili presărați deasupra. Căldura ardeiului iute completează perfect aroma sosului de soia.`,
+                "Double Truffle Smashed Burger": `<b>Lux și Forță: Double Truffle Smashed Burger</b><br>Răsfățul suprem pentru gurmandul modern. Un burger decadent și puternic, unde calitatea cărnii Black Angus se întâlnește cu aroma luxoasă a trufelor.<br><br><b>Cum este forjat:</b><br>Carnea: Începem cu 150g de vită Black Angus, pe care o presăm ("smash") pe o plită încinsă. Astfel, obținem o crustă caramelizată la exterior, păstrând carnea incredibil de suculentă în interior.<br>Brânza: Peste fiecare bucată de carne topim câte o felie de brânză cheddar.<br>Asamblarea: Într-o chiflă proaspătă și prăjită, așezăm carnea peste un pat de salată iceberg crocantă, castraveți murați și ceapă caramelizată dulce.<br>Secretul: Sosul care leagă totul este o maioneză fină, îmbogățită cu aroma inconfundabilă de trufe negre.<br><br>⭐ <b>Sfatul bucătarului:</b> Acest burger este o experiență completă. Pentru festinul suprem, folosește cartofii prăjiți pentru a aduna sosul cheddar și ceapa crocantă cu care vine servit.`,
+                "Double Cheeseburger": `<b>Clasicul Legendar: Double Cheeseburger</b><br>Nu am reinventat rețeta, ci doar am perfecționat-o folosind ingrediente de cea mai bună calitate. Este gustul pur, direct și puternic al unui cheeseburger așa cum ar trebui să fie.<br><br><b>Cum este construit:</b><br>Fundația: La bază stau 150g de vită Black Angus preparată prin tehnica "smash" și două felii de brânză cheddar, topite perfect peste carnea fierbinte.<br>Clasicii: Adăugăm prospețime și textură crocantă de la salata iceberg și feliile de castraveți murați.<br>Elementul Surpriză: Secretul nostru este sosul special de burger, preparat în casă, cu un echilibru perfect între acru, dulce și cremos, care completează perfect fiecare mușcătură.<br><br>⭐ <b>Sfatul bucătarului:</b> Acesta este standardul de aur. Dacă te simți în formă, întreabă dacă poți adăuga o a treia bucată de carne pentru a-l transforma într-un burger cu adevărat titanic.`,
+                "Sticky Mango": `<b>Ambrozia Modernă: Desert Sticky Mango</b><br>Finalul perfect pentru o masă de campion. Un desert reconfortant și cremos, cu o întorsătură exotică ce te va surprinde plăcut.<br><br><b>Cum este creat:</b><br>Baza: Pregătim un griș cu lapte foarte fin și bogat, infuzat cu un strop de vanilie pentru o aromă caldă și familiară.<br>Inima Exotică: După ce s-a răcit, așezăm deasupra un strat generos de piure de mango proaspăt și vibrant, plin de dulceață naturală.<br>Textura Finală: Presărăm deasupra fulgi de cocos și un praf de scorțișoară pentru o notă aromatică și o textură interesantă.<br><br>⭐ <b>Sfatul bucătarului:</b> Secretul senzației stă în contrastul de temperatură și textură. Încearcă să iei în fiecare lingură puțin din grișul rece și cremos, împreună cu piureul de mango la temperatura camerei. Este un echilibru divin.`
+            };
+
+            const mealCardsContainer = document.getElementById('meal-cards-container');
+            if (mealCardsContainer) {
+                mealCardsContainer.innerHTML = '';
+                menuData.meals.forEach(meal => {
+                    const card = document.createElement('div');
+                    card.className = "bg-slate-med rounded-lg shadow-lg p-6 flex flex-col justify-between card-glow";
+                    card.innerHTML = `
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <h3 class="font-cinzel font-bold text-xl text-gold">${meal.title}</h3>
+                                    <p class="text-xs text-mid-gray uppercase tracking-wider">${meal.category}</p>
+                                </div>
+                                <span class="text-lg font-cinzel font-bold text-light-gray">${meal.price} RON</span>
+                            </div>
+                            <p class="text-sm text-mid-gray mb-4">${meal.description}</p>
+                            <div class="space-y-1 mb-4">
+                                <div class="flex justify-between text-sm"><span class="text-mid-gray">Proteine:</span> <span class="font-bold">${meal.macros.p}g</span></div>
+                                <div class="flex justify-between text-sm"><span class="text-mid-gray">Carbohidrați:</span> <span class="font-bold">${meal.macros.c}g</span></div>
+                                <div class="flex justify-between text-sm"><span class="text-mid-gray">Grăsimi:</span> <span class="font-bold">${meal.macros.f}g</span></div>
+                                <div class="flex justify-between text-sm mt-2 pt-2 border-t border-gold/20"><span class="font-semibold">Total Calorii:</span> <span class="font-bold text-gold">${meal.macros.cal} kcal</span></div>
+                            </div>
+                            <div id="recipe-${meal.id}" class="recipe-response mt-4 p-3 bg-slate-dark rounded-md border border-gray-700 text-xs hidden"></div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gold/20 flex">
+                             <button class="ai-recipe-btn w-full bg-slate-dark/50 border border-gray-600 px-3 py-2 text-xs rounded-md font-semibold hover:bg-slate-dark transition text-gold" data-meal-id="${meal.id}">Secretul Bucătarului (AI)</button>
+                        </div>
+                    `;
+                    mealCardsContainer.appendChild(card);
+                });
+            }
+
+            // --- Updated AI Recipe Button Logic ---
+            document.querySelectorAll('.ai-recipe-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const mealId = e.target.dataset.mealId;
+                    const recipeResponseEl = document.getElementById('recipe-' + mealId);
+                    const meal = menuData.meals.find(m => m.id == mealId);
+                    if (!meal) return;
+                    if (recipeResponseEl.classList.contains('hidden')) {
+                        recipeResponseEl.classList.remove('hidden');
+                        recipeResponseEl.innerHTML = '<div class="mx-auto my-2 loader"></div>';
+                        setTimeout(() => {
+                            recipeResponseEl.innerHTML = aiDescriptions[meal.title] || 'Rețeta nu este disponibilă.';
+                        }, 400);
+                    } else {
+                        recipeResponseEl.classList.add('hidden');
+                        recipeResponseEl.innerHTML = '';
+                    }
+                });
+            });
+
+            // --- Oracle Unique Answers Logic ---
+            const allOracleResponses = [
+                "Ți-ar prinde bine un desert!",
+                "Ai nevoie de un Thai Bowl pentru energia necesară!",
+                "Recomand Double Truffle Smashed Burger pentru forță maximă!",
+                "Sticky Mango e alegerea zeilor după antrenament!",
+                "Hawaiian Bowl îți va aduce un plus de vitalitate!",
+                "Mediteranean Bowl este perfect pentru o zi echilibrată!",
+                "Double Cheeseburger pentru un boost de proteine!",
+                "Mexican Bowl te va energiza pentru toată ziua!",
+                "Bali Bowl e ideal pentru refacere rapidă!",
+                "Nu uita să bei apă! Hidratarea e cheia performanței!",
+                "Azi e ziua perfectă pentru un cheat meal!",
+                "Oracolul spune: încearcă ceva nou din meniu!",
+                "Un bol cu extra proteine te va ajuta să-ți atingi obiectivele!",
+                "Alege ce te face fericit – și zeii apreciază plăcerea!",
+                "Un desert după antrenament e permis!",
+                "Nu uita de legume – echilibrul e totul!",
+                "Oracolul recomandă: ascultă-ți corpul!",
+                "Un burger merge perfect după o zi grea!",
+                "Azi, Mediteranean Bowl pentru echilibru!",
+                "Bali Bowl pentru o stare zen!"
+            ];
+            let oracleResponsesPool = [];
+            function getNextOracleResponse() {
+                if (oracleResponsesPool.length === 0) {
+                    // Shuffle a copy of allOracleResponses
+                    oracleResponsesPool = allOracleResponses.slice().sort(() => Math.random() - 0.5);
+                }
+                return oracleResponsesPool.pop();
+            }
+            document.getElementById('ask-oracle-btn').addEventListener('click', async () => {
+                const question = document.getElementById('oracle-question').value;
+                if (!question.trim()) return;
+                const responseEl = document.getElementById('oracle-response');
+                const loaderEl = document.getElementById('oracle-loader');
+                responseEl.classList.add('hidden');
+                loaderEl.classList.remove('hidden');
+                // Get a unique response each time
+                const answer = getNextOracleResponse();
+                setTimeout(() => {
+                    responseEl.innerHTML = answer;
+                    loaderEl.classList.add('hidden');
+                    responseEl.classList.remove('hidden');
+                }, 700);
+            });
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('main > section');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('data-target');
+                    const targetSection = document.getElementById(targetId);
+                    if(targetSection) window.scrollTo({ top: targetSection.offsetTop - 70, behavior: 'smooth' });
+                    if (!mobileMenu.classList.contains('hidden')) mobileMenu.classList.add('hidden');
+                });
+            });
+            window.addEventListener('scroll', () => {
+                let current = 'welcome';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 80) current = section.getAttribute('id');
+                });
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('data-target') === current) link.classList.add('active');
+                });
+            });
+        });
+    </script>
+</head>
+<body class="bg-slate-dark text-light-gray">
+
+    <header class="bg-slate-dark/80 backdrop-blur-md sticky top-0 z-50 shadow-lg shadow-black/20">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl md:text-2xl font-cinzel font-bold">
+                        <span class="text-gold">FITGHOST</span>
+                        <span class="text-light-gray">x</span>
+                        <span class="text-gold">GREEK GOD</span>
+                    </h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a data-target="welcome" class="nav-link px-3 py-2 rounded-md text-sm font-medium active">Concept</a>
+                        <a data-target="menu" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Meniu</a>
+                        <a data-target="oracle" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Oracol</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-light-gray hover:text-gold focus:outline-none">
+                        <span class="sr-only">Deschide meniul</span>
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="md:hidden hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                 <a data-target="welcome" class="nav-link block px-3 py-2 rounded-md text-base font-medium">Concept</a>
+                 <a data-target="menu" class="nav-link block px-3 py-2 rounded-md text-base font-medium">Meniu</a>
+                 <a data-target="oracle" class="nav-link block px-3 py-2 rounded-md text-base font-medium">Oracol</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <section id="welcome" class="text-center mb-16 scroll-mt-20">
+            <h1 class="font-cinzel text-4xl md:text-6xl font-bold mb-4 text-gold">HRANA ZEILOR MODERNI</h1>
+            <h2 class="text-xl md:text-2xl font-cinzel text-mid-gray mb-6">Acolo unde Forța întâlnește Gustul</h2>
+            <p class="max-w-3xl mx-auto mb-4">Am fuzionat disciplina legendară a fizicului de zeu grec cu inovația culinară FitGhost pentru a crea un meniu unic. Fiecare preparat este o capodoperă a nutriției, proiectată pentru performanță, fără a sacrifica plăcerea de a mânca.</p>
+        </section>
+
+        <section id="menu" class="mb-16 scroll-mt-20">
+            <h2 class="font-cinzel text-3xl md:text-4xl text-center font-bold mb-10">Meniul Zeului Fit</h2>
+            <div id="meal-cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Meniul se va încărca aici. Dacă nu apare, JavaScript-ul este blocat. -->
+                 <div class="text-center col-span-full py-10">
+                    <div class="loader mx-auto"></div>
+                    <p class="mt-4 text-mid-gray">Se încarcă meniul zeilor...</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="oracle" class="scroll-mt-20">
+            <h2 class="font-cinzel text-3xl md:text-4xl text-center font-bold mb-10">Întreabă Oracolul FitGhost</h2>
+            <div class="max-w-3xl mx-auto bg-slate-med p-6 rounded-lg shadow-lg card-glow">
+                <div class="space-y-4">
+                    <textarea id="oracle-question" class="w-full p-3 rounded-md bg-slate-dark border border-gray-600 focus:outline-none focus:ring-2 focus:ring-gold text-light-gray" rows="3" placeholder="Ex: Ce bowl recomanzi pentru energie?"></textarea>
+                    <button id="ask-oracle-btn" class="w-full flex items-center justify-center bg-gold/90 border border-gold px-4 py-3 rounded-md text-base font-semibold text-slate-dark hover:bg-gold transition">
+                        <span>Primește Răspunsul Oracolului</span>
+                    </button>
+                    <div id="oracle-loader" class="hidden mx-auto loader"></div>
+                    <div id="oracle-response" class="mt-4 p-4 bg-slate-dark rounded-md border border-gray-700 text-sm hidden"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</body>
+</html>
